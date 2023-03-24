@@ -1,0 +1,11 @@
+version: '3.7'
+services:
+  db:
+    image: mysql:8.0.31
+    container_name: dashboard_mysql
+    volumes:
+      - ./database:/var/lib/mysql:rw
+    environment:
+      - MYSQL_ROOT_PASSWORD=admin
+    ports:
+      - '3306:3306'
