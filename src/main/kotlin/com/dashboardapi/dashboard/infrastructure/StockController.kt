@@ -1,11 +1,13 @@
 package com.dashboardapi.dashboard.infrastructure
 
-import com.dashboardapi.dashboard.persistence.repository.StockRepository
-import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.CrossOrigin
+import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 
 @RestController
+@CrossOrigin
+@RequestMapping("/stock")
 class StockController(
 ) {
 

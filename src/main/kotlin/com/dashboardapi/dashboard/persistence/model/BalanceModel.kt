@@ -19,5 +19,5 @@ data class BalanceModel(
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    val userId: UserModel
+    val user: UserModel
 )

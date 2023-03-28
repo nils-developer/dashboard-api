@@ -11,7 +11,7 @@ data class UserModel(
     @Column(name = "username", columnDefinition = "varChar(50)")
     val username: String,
 
-    @OneToMany(mappedBy = "userId", cascade = [CascadeType.ALL])
+    @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL])
     val balances: List<BalanceModel> = emptyList(),
 
     @OneToMany(mappedBy = "userId", cascade = [CascadeType.ALL])
