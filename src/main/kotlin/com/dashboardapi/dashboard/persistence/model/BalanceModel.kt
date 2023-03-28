@@ -4,19 +4,20 @@ import jakarta.persistence.*
 import org.jetbrains.annotations.NotNull
 import java.sql.Date
 
-@Entity(name = "investment")
-data class InvestmentModel(
+@Entity(name = "balances")
+data class BalanceModel(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Int,
+    val balanceId: Int,
 
-    @Column(name = "value", columnDefinition = "double")
-    val value: Double,
-
-    @Column(name = "dividend", columnDefinition = "boolean")
-    val dividend: Boolean,
+    @Column(name = "balance", columnDefinition = "double")
+    val balance: Double,
 
     @Column(name = "created_at", columnDefinition = "date")
     @NotNull
-    val date: Date
+    val date: Date,
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    val userId: UserModel
 )

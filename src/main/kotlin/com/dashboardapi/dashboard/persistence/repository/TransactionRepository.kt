@@ -1,9 +1,9 @@
 package com.dashboardapi.dashboard.persistence.repository
 
-import com.dashboardapi.dashboard.persistence.model.BankModel
+import com.dashboardapi.dashboard.persistence.model.TransactionModel
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface BankRepository: JpaRepository<BankModel, Int> {
+interface TransactionRepository: JpaRepository<TransactionModel, Int> {
 }

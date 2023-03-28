@@ -1,26 +1,25 @@
 package com.dashboardapi.dashboard.persistence.model
 
-import jakarta.persistence.Column
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
+import jakarta.persistence.*
 import org.jetbrains.annotations.NotNull
 import java.sql.Date
 
-@Entity(name = "stock")
+@Entity(name = "stocks")
 data class StockModel(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Int,
 
-    @Column(name = "name", columnDefinition = "varChar(255)")
-    val name: String,
+    @Column(name = "stock_name", columnDefinition = "varChar(255)")
+    val stockName: String,
 
     @Column(name = "price", columnDefinition = "double")
     val price: Double,
 
     @Column(name = "updated_at", columnDefinition = "date")
     @NotNull
-    val date: Date
+    val stockDate: Date,
+
+    @OneToMany(mappedBy = "purchaseId", cascade = [CascadeType.ALL])
+    val stockPurchases: List<StockPurchaseModel> = emptyList()
 )
