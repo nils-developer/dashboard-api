@@ -1,11 +1,9 @@
 package com.dashboardapi.dashboard.infrastructure
 
 import com.dashboardapi.dashboard.domain.Balance
+import com.dashboardapi.dashboard.persistence.model.BalanceModel
 import com.dashboardapi.dashboard.persistence.repository.BalanceRepository
-import org.springframework.web.bind.annotation.CrossOrigin
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @CrossOrigin
@@ -26,4 +24,22 @@ class BalanceController(
             it.balance
         }
     }
+
+    @PatchMapping("/increase/{id}")
+    fun increaseBalance(
+        @PathVariable id: Int,
+        @RequestBody requestBody: BalanceUpdateRequest
+    ) {
+        val balance = requestBody.balance
+        val date = requestBody.date
+        val balanceItem: BalanceModel = balanceRepository.findById(id).get()
+        balanceItem.balance += balance
+        balanceItem.date = date
+        balanceRepository.save(balanceItem)
+    }
 }
+
+data class BalanceUpdateRequest(
+    val balance: Double,
+    val date: java.sql.Date
+)

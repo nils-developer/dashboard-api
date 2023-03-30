@@ -10,10 +10,6 @@ data class TransactionModel(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val transactionId: Int,
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    val userId: UserModel,
-
     @Column(name = "transaction_type", columnDefinition = "varChar(40)")
     val transactionType: String,
 
@@ -22,5 +18,9 @@ data class TransactionModel(
 
     @Column(name = "created_at", columnDefinition = "date")
     @NotNull
-    val date: Date
+    val date: Date,
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    val user: UserModel
 )

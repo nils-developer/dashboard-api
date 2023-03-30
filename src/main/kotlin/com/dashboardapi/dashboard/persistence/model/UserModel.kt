@@ -14,7 +14,7 @@ data class UserModel(
     @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL])
     val balances: List<BalanceModel> = emptyList(),
 
-    @OneToMany(mappedBy = "userId", cascade = [CascadeType.ALL])
+    @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL])
     val transactions: List<TransactionModel> = emptyList(),
 
     @OneToMany(mappedBy = "userId", cascade = [CascadeType.ALL])
