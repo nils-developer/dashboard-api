@@ -37,9 +37,25 @@ class BalanceController(
         balanceItem.date = date
         balanceRepository.save(balanceItem)
     }
+
+    @PatchMapping("/decrease/{id}")
+    fun decreaseBalance(
+        @PathVariable id: Int,
+        @RequestBody requestBody: TransactionDeleteReqeust
+    ) {
+        val amount = requestBody.amount
+        val balanceItem: BalanceModel = balanceRepository.findById(id).get()
+        balanceItem.balance -= amount
+        balanceRepository.save(balanceItem)
+
+    }
 }
 
 data class BalanceUpdateRequest(
     val balance: Double,
     val date: java.sql.Date
+)
+
+data class TransactionDeleteReqeust(
+    val amount: Double
 )
