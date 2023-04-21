@@ -14,7 +14,7 @@ data class StockModel(
     val stockName: String,
 
     @Column(name = "price", columnDefinition = "double")
-    val price: Double,
+    val stockPrice: Double,
 
     @Column(name = "updated_at", columnDefinition = "date")
     @NotNull
