@@ -41,7 +41,7 @@ class BalanceController(
     @PatchMapping("/decrease/{id}")
     fun decreaseBalance(
         @PathVariable id: Int,
-        @RequestBody requestBody: TransactionDeleteReqeust
+        @RequestBody requestBody: TransactionDeleteRequest
     ) {
         val amount = requestBody.amount
         val balanceItem: BalanceModel = balanceRepository.findById(id).get()
@@ -56,6 +56,6 @@ data class BalanceUpdateRequest(
     val date: java.sql.Date
 )
 
-data class TransactionDeleteReqeust(
+data class TransactionDeleteRequest(
     val amount: Double
 )
