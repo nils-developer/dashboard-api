@@ -12,7 +12,7 @@ class TransactionsController(
     val transactionRepository: TransactionRepository
 ) {
 
-    @GetMapping("/fetch")
+    @GetMapping("/fetchAll")
     fun fetchAll(): List<Transaction> {
         return transactionRepository.findAll().map {
             Transaction(it.transactionId, it.transactionType, it.amount, it.date, it.user.userId)
