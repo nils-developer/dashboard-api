@@ -13,11 +13,17 @@ class TransactionsController(
 ) {
 
     @GetMapping("/fetchAll")
-    fun fetchAll(): List<Transaction> {
-        return transactionRepository.findAll().map {
+    fun fetchAll(): List<Transaction> = transactionRepository.findAll().map {
             Transaction(it.transactionId, it.transactionType, it.amount, it.date, it.user.userId)
         }
-    }
+
+    @GetMapping("/fetchTotal")
+    fun fetchTotal(): Double = fetchAll().sumOf {
+            if (it.transactionType == "E") - it.amount else it.amount
+        }
+
+    @GetMapping("/fetchInvest")
+    fun fetchInvest(): Double = fetchAll().filter { it.transactionType == "I" }.sumOf { it.amount }
 
     @PostMapping("/create")
     fun createTransaction(@RequestBody transactionModel: TransactionModel) {

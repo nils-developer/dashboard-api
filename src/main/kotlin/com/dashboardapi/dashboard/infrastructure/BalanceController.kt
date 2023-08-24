@@ -30,11 +30,10 @@ class BalanceController(
         @PathVariable id: Int,
         @RequestBody requestBody: BalanceUpdateRequest
     ) {
-        val balance = requestBody.balance
-        val date = requestBody.date
         val balanceItem: BalanceModel = balanceRepository.findById(id).get()
-        balanceItem.balance += balance
-        balanceItem.date = date
+
+        balanceItem.balance += requestBody.balance
+        balanceItem.date = requestBody.date
         balanceRepository.save(balanceItem)
     }
 
