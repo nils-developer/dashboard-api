@@ -1,5 +1,6 @@
 package com.dashboardapi.dashboard.infrastructure
 
+import com.dashboardapi.dashboard.domain.Amount
 import com.dashboardapi.dashboard.domain.Transaction
 import com.dashboardapi.dashboard.persistence.model.TransactionModel
 import com.dashboardapi.dashboard.persistence.repository.TransactionRepository
@@ -18,12 +19,16 @@ class TransactionsController(
         }
 
     @GetMapping("/fetchTotal")
-    fun fetchTotal(): Double = fetchAll().sumOf {
-            if (it.transactionType == "E") - it.amount else it.amount
-        }
+    fun fetchTotal(): Double {
+        val totalExpense = transactionRepository.findAllTransactionByType("E").sumOf { it.amount }
+        val totalBank = transactionRepository.findAllTransactionByType("B").sumOf { it.amount }
+        val totalInvest = transactionRepository.findAllTransactionByType("I").sumOf{ it.amount }
+
+        return totalBank + totalInvest - totalExpense
+    }
 
     @GetMapping("/fetchInvest")
-    fun fetchInvest(): Double = fetchAll().filter { it.transactionType == "I" }.sumOf { it.amount }
+    fun fetchInvest() = Amount(transactionRepository.findAllTransactionByType("I").sumOf { it.amount })
 
     @PostMapping("/create")
     fun createTransaction(@RequestBody transactionModel: TransactionModel) {
