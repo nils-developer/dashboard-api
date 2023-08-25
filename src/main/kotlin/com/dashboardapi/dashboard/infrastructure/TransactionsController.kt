@@ -19,12 +19,12 @@ class TransactionsController(
         }
 
     @GetMapping("/fetchTotal")
-    fun fetchTotal(): Double {
+    fun fetchTotal(): Amount {
         val totalExpense = transactionRepository.findAllTransactionByType("E").sumOf { it.amount }
         val totalBank = transactionRepository.findAllTransactionByType("B").sumOf { it.amount }
         val totalInvest = transactionRepository.findAllTransactionByType("I").sumOf{ it.amount }
 
-        return totalBank + totalInvest - totalExpense
+        return Amount(totalBank + totalInvest - totalExpense)
     }
 
     @GetMapping("/fetchInvest")
