@@ -1,5 +1,6 @@
 package com.dashboardapi.dashboard.infrastructure
 
+import com.dashboardapi.dashboard.domain.Amount
 import com.dashboardapi.dashboard.domain.Balance
 import com.dashboardapi.dashboard.persistence.model.BalanceModel
 import com.dashboardapi.dashboard.persistence.repository.BalanceRepository
@@ -28,7 +29,7 @@ class BalanceController(
     @PatchMapping("/increase/{id}")
     fun increaseBalance(
         @PathVariable id: Int,
-        @RequestBody requestBody: BalanceUpdateRequest
+        @RequestBody requestBody: Balance
     ) {
         val balanceItem: BalanceModel = balanceRepository.findById(id).get()
 
@@ -40,7 +41,7 @@ class BalanceController(
     @PatchMapping("/decrease/{id}")
     fun decreaseBalance(
         @PathVariable id: Int,
-        @RequestBody requestBody: TransactionDeleteRequest
+        @RequestBody requestBody: Amount
     ) {
         val amount = requestBody.amount
         val balanceItem: BalanceModel = balanceRepository.findById(id).get()
@@ -49,12 +50,3 @@ class BalanceController(
 
     }
 }
-
-data class BalanceUpdateRequest(
-    val balance: Double,
-    val date: java.sql.Date
-)
-
-data class TransactionDeleteRequest(
-    val amount: Double
-)
