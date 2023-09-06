@@ -29,6 +29,11 @@ class TransactionsController(
         )
     }
 
+    @GetMapping("/fetchAmountByMonth")
+    fun fetchAmountByMonth(): List<TransactionModel> {
+        return transactionRepository.sumAllTransactionsByMonth()
+    }
+
     @GetMapping("/fetchInvest")
     fun fetchInvest() = Amount(
         transactionRepository.findAllTransactionsByType("I").sumOf { it.amount }

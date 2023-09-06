@@ -13,4 +13,13 @@ interface TransactionRepository: JpaRepository<TransactionModel, Int> {
         nativeQuery = true
     )
     fun findAllTransactionsByType(type: String): List<TransactionModel>
+
+    @Query(
+        "SELECT month(created_at), sum(amount) AS monthly_amount \n" +
+                "FROM transactions \n" +
+                "WHERE month(created_at) = month(created_at) AND transaction_type NOT LIKE 'E'\n" +
+                "GROUP BY month(created_at)",
+        nativeQuery = true
+    )
+    fun sumAllTransactionsByMonth(): List<TransactionModel>
 }
