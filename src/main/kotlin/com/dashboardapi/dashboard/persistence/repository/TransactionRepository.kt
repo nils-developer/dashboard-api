@@ -12,5 +12,5 @@ interface TransactionRepository: JpaRepository<TransactionModel, Int> {
         "SELECT * FROM transactions WHERE transaction_type = :type",
         nativeQuery = true
     )
-    fun findAllTransactionByType(type: String): List<TransactionModel>
+    fun findAllTransactionsByType(type: String): List<TransactionModel>
 }

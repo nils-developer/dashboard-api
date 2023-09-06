@@ -20,15 +20,19 @@ class TransactionsController(
 
     @GetMapping("/fetchTotal")
     fun fetchTotal(): Amount {
-        val totalExpense = transactionRepository.findAllTransactionByType("E").sumOf { it.amount }
-        val totalBank = transactionRepository.findAllTransactionByType("B").sumOf { it.amount }
-        val totalInvest = transactionRepository.findAllTransactionByType("I").sumOf{ it.amount }
+        val totalExpense = transactionRepository.findAllTransactionsByType("E").sumOf { it.amount }
+        val totalBank = transactionRepository.findAllTransactionsByType("B").sumOf { it.amount }
+        val totalInvest = transactionRepository.findAllTransactionsByType("I").sumOf{ it.amount }
 
-        return Amount(totalBank + totalInvest - totalExpense)
+        return Amount(
+            totalBank + totalInvest - totalExpense
+        )
     }
 
     @GetMapping("/fetchInvest")
-    fun fetchInvest() = Amount(transactionRepository.findAllTransactionByType("I").sumOf { it.amount })
+    fun fetchInvest() = Amount(
+        transactionRepository.findAllTransactionsByType("I").sumOf { it.amount }
+    )
 
     @PostMapping("/create")
     fun createTransaction(@RequestBody transactionModel: TransactionModel) {
@@ -36,8 +40,7 @@ class TransactionsController(
     }
 
     @DeleteMapping("/delete/{id}")
-    fun deleteItem(@PathVariable id: Int)
-    {
+    fun deleteItem(@PathVariable id: Int) {
         transactionRepository.deleteById(id)
     }
 }
