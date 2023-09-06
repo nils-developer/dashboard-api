@@ -1,6 +1,7 @@
 package com.dashboardapi.dashboard.infrastructure
 
 import com.dashboardapi.dashboard.domain.Amount
+import com.dashboardapi.dashboard.domain.MonthlyAmount
 import com.dashboardapi.dashboard.domain.Transaction
 import com.dashboardapi.dashboard.persistence.model.TransactionModel
 import com.dashboardapi.dashboard.persistence.repository.TransactionRepository
@@ -30,8 +31,10 @@ class TransactionsController(
     }
 
     @GetMapping("/fetchAmountByMonth")
-    fun fetchAmountByMonth(): List<TransactionModel> {
-        return transactionRepository.sumAllTransactionsByMonth()
+    fun fetchAmountByMonth(): List<MonthlyAmount> {
+        return transactionRepository.sumAllTransactionsByMonth().map {
+            MonthlyAmount(it.date, it.amount)
+        }
     }
 
     @GetMapping("/fetchInvest")
