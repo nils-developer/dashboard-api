@@ -6,6 +6,6 @@ data class Transaction(
     val transactionId: Int,
     val transactionType: String,
     val amount: Double,
-    val date: Date?,
+    val date: Date,
     val userId: Int
 )
